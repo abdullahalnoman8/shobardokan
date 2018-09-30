@@ -63,7 +63,7 @@ public class HomeController {
     public String forgetPassword(Model model){
         return "register/forgot-password";
     }
-
+    
     @RequestMapping(value = "/403",method = RequestMethod.GET)
     public String error(Model model){
         model.addAttribute("title","ACCESS DENIED");

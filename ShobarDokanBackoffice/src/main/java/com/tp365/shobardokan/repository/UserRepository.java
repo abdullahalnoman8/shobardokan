@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import org.springframework.lang.Nullable;
 
 @Slf4j
 @Repository
@@ -66,7 +65,6 @@ public class UserRepository {
 
     public List<User> findAll(){
         String query = "Select * from user";
-
         try{
            return  jdbcTemplate.query(query,new UserRowMapper());
         }catch (DataAccessException dae){
@@ -77,7 +75,7 @@ public class UserRepository {
     }
 
     public User findUserByUserName(String userName) {
-        String query ="SELECT * FROM user WHERE BINARY UserName = ? ";
+        String query ="SELECT * FROM user WHERE BINARY username = ? ";
         try{
             return jdbcTemplate.queryForObject(query,new Object[]{userName},new UserRowMapper());
         }catch (DataAccessException dae){
@@ -97,9 +95,9 @@ public class UserRepository {
             user.setPassword(resultSet.getString("password"));
             user.setPhone(resultSet.getString("phone"));
             user.setEmail(resultSet.getString("email"));
-            user.setUserStatus(User.UserStatus.valueOf("user_status"));
+            user.setUserStatus(User.UserStatus.valueOf(resultSet.getString("user_status")));
             user.setIsActive(resultSet.getBoolean("is_active"));
-            user.setLastActiveDate(Utils.convertDateToTimeStamp(resultSet.getDate("datetime")));
+            user.setLastActiveDate(resultSet.getDate("last_active"));
             user.setCreatedDate(Utils.convertTimeStampToDate(resultSet.getTimestamp("created_date")));
             return user;
         }

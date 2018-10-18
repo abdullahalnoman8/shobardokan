@@ -2,7 +2,7 @@ package com.tp365.shobardokan.controller;
 
 
 import com.tp365.shobardokan.model.User;
-import com.tp365.shobardokan.repository.UserDao;
+import com.tp365.shobardokan.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -18,16 +19,17 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    @GetMapping(value = "/")
-//    public String welcomePage(Model model) {
-//        model.addAttribute("title", "Welcome to Smart Meter Backoffice");
-//        return "home/home";
-//    }
-//
-//
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
+
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @ResponseBody
+    public String loggedIn(Model model) {
+
+        log.info("Logged in as: " + SecurityContextHolder.getContext().getAuthentication().getName());
+
+        return "Logged in as: " + SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
@@ -40,7 +42,7 @@ public class HomeController {
     @RequestMapping(value = "/userData", method = RequestMethod.GET)
     public String userData(Model model) {
 //        model.addAttribute("title", "Welcome to Smart Meter Backoffice");
-        List<User> userList = userDao.findAll();
+        List<User> userList = userRepository.findAll();
         System.out.println(userList.toString());
         return "login/login";
     }
@@ -63,7 +65,7 @@ public class HomeController {
     public String forgetPassword(Model model){
         return "register/forgot-password";
     }
-    
+
     @RequestMapping(value = "/403",method = RequestMethod.GET)
     public String error(Model model){
         model.addAttribute("title","ACCESS DENIED");

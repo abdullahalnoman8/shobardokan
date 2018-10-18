@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Slf4j
-public class RoleDao {
+public class RoleRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

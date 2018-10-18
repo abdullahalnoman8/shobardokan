@@ -2,8 +2,8 @@ package com.tp365.shobardokan.service;
 
 
 import com.tp365.shobardokan.model.User;
-import com.tp365.shobardokan.repository.RoleDao;
-import com.tp365.shobardokan.repository.UserDao;
+import com.tp365.shobardokan.repository.RoleRepository;
+import com.tp365.shobardokan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,24 +18,22 @@ import java.util.Arrays;
 public class LoginService implements UserDetailsService{
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
-    private RoleDao roleDao;
+    private RoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        User user = userDao.findUserByUserName(userName);
+        User user = userRepository.findUserByUserName(userName);
         if(user ==null){
             throw new UsernameNotFoundException("UserName : " + userName+ "Not Found");
         }
-
-        final String roleName = roleDao.findRoleNameById(user.getRole().getId());
-
+        final String roleName = roleRepository.findRoleNameById(user.getRole().getId());
         GrantedAuthority authority = new SimpleGrantedAuthority(roleName);
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsrName(),
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(), Arrays.asList(authority));
         return userDetails;
     }

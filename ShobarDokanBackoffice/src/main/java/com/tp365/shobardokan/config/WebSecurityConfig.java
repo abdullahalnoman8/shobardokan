@@ -1,6 +1,8 @@
 package com.tp365.shobardokan.config;
 
 
+import com.tp365.shobardokan.service.FacebookConnectionSignup;
+import com.tp365.shobardokan.service.FacebookSignInAdapter;
 import com.tp365.shobardokan.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,25 +15,40 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInController;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+
     @Autowired
     private LoginService loginService;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    /*Authentic System for facebook login*/
+    @Autowired
+    private ConnectionFactoryLocator connectionFactoryLocator;
+
+    @Autowired
+    private UsersConnectionRepository usersConnectionRepository;
+
+    @Autowired
+    private FacebookConnectionSignup facebookConnectionSignup;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/login","/register","/forgetPassword").permitAll()
-                .antMatchers("/dashboard").hasAuthority("ADMIN")
+                .antMatchers("/login").anonymous()
+                .antMatchers("/register","/forgetPassword","/signin/**","/signup/**").permitAll()
+                .antMatchers("/dashboard").hasAnyAuthority("ADMIN","FACEBOOK_USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .permitAll()
                 .failureUrl("/login?error")
                 .defaultSuccessUrl("/dashboard")
                 .and()
@@ -41,22 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .exceptionHandling().accessDeniedPage("/403")
         ;
     }
-
-
-
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("password")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -70,6 +71,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
         return daoAuthenticationProvider;
     }
+
+    @Bean
+    public ProviderSignInController providerSignInController(){
+        ((InMemoryUsersConnectionRepository) usersConnectionRepository).setConnectionSignUp(facebookConnectionSignup);
+        ProviderSignInController providerSignInController = new ProviderSignInController(
+                connectionFactoryLocator,usersConnectionRepository,new FacebookSignInAdapter());
+        providerSignInController.setSignInUrl("/sign-in-url");
+        providerSignInController.setSignUpUrl("/sign-up-url");
+        providerSignInController.setPostSignInUrl("/dashboard");
+        return providerSignInController;
+    }
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {

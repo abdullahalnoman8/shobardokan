@@ -1,6 +1,7 @@
 package com.tp365.shobardokan.repository;
 
 
+import com.tp365.shobardokan.model.Role;
 import com.tp365.shobardokan.model.User;
 import com.tp365.shobardokan.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
@@ -64,23 +65,23 @@ public class UserRepository {
     }
 
     public List<User> findAll(){
-        String query = "Select * from user";
+        String query = "SELECT * from user INNER JOIN users_roles ON user.id = users_roles.user_id";
         try{
            return  jdbcTemplate.query(query,new UserRowMapper());
         }catch (DataAccessException dae){
-            dae.printStackTrace();
-            dae.getLocalizedMessage();
+            log.error("User Data Not Found, Error: {}",dae.getLocalizedMessage());
         }
         return new ArrayList<>();
     }
 
     public User findUserByUserName(String userName) {
-        String query ="SELECT * FROM user WHERE BINARY username = ? ";
+        String query = "SELECT user.*,users_roles.* FROM user,users_roles " +
+                "WHERE user.username= ? " +
+                "AND user.id = users_roles.user_id";
         try{
             return jdbcTemplate.queryForObject(query,new Object[]{userName},new UserRowMapper());
         }catch (DataAccessException dae){
-            dae.printStackTrace();
-            dae.getLocalizedMessage();
+            log.error("User Data Not Found, Error: {}",dae.getLocalizedMessage());
             return new User();
         }
     }
@@ -95,9 +96,13 @@ public class UserRepository {
             user.setPassword(resultSet.getString("password"));
             user.setPhone(resultSet.getString("phone"));
             user.setEmail(resultSet.getString("email"));
+            Role role = new Role();
+            role.setId(resultSet.getInt("role_id"));
+            user.setRole(role);
             user.setUserStatus(User.UserStatus.valueOf(resultSet.getString("user_status")));
             user.setIsActive(resultSet.getBoolean("is_active"));
             user.setLastActiveDate(resultSet.getDate("last_active"));
+
             user.setCreatedDate(Utils.convertTimeStampToDate(resultSet.getTimestamp("created_date")));
             return user;
         }

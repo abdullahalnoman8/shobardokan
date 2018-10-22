@@ -34,14 +34,11 @@ public class HomeController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("title", "Welcome to Smart Meter Backoffice");
-//        List<User> userList = userDao.findAll();
-//        System.out.println(userList.toString());
         return "login/login";
     }
 
     @RequestMapping(value = "/userData", method = RequestMethod.GET)
     public String userData(Model model) {
-//        model.addAttribute("title", "Welcome to Smart Meter Backoffice");
         List<User> userList = userRepository.findAll();
         System.out.println(userList.toString());
         return "login/login";
@@ -49,7 +46,7 @@ public class HomeController {
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
-        model.addAttribute("title", "Welcome to Smart Meter Backoffice");
+        model.addAttribute("title", "Welcome to Smart Meter BackOffice");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 //        model.addAttribute("roleId", userDao.findByUserName(auth.getName()).getRole().getId());

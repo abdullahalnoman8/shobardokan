@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -23,12 +22,11 @@ public class HomeController {
     private UserRepository userRepository;
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    @ResponseBody
     public String loggedIn(Model model) {
 
         log.info("Logged in as: " + SecurityContextHolder.getContext().getAuthentication().getName());
 
-        return "Logged in as: " + SecurityContextHolder.getContext().getAuthentication().getName();
+        return "home/dashboard";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -46,11 +44,8 @@ public class HomeController {
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
-        model.addAttribute("title", "Welcome to Smart Meter BackOffice");
+        log.info("Dashboard View For User: {}",SecurityContextHolder.getContext().getAuthentication());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-//        model.addAttribute("roleId", userDao.findByUserName(auth.getName()).getRole().getId());
-
         return "home/index";
     }
     @RequestMapping(value = "/register", method = RequestMethod.GET)

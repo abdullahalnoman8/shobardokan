@@ -27,7 +27,7 @@ public class LoginService implements UserDetailsService{
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
         User user = userRepository.findUserByUserName(userName);
-        if(user ==null){
+        if(user == null){
             throw new UsernameNotFoundException("UserName : " + userName+ "Not Found");
         }
         final String roleName = roleRepository.findRoleNameById(user.getRole().getId());

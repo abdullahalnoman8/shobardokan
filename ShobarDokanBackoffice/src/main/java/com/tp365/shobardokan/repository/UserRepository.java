@@ -82,7 +82,7 @@ public class UserRepository {
             return jdbcTemplate.queryForObject(query,new Object[]{userName},new UserRowMapper());
         }catch (DataAccessException dae){
             log.error("User Data Not Found, Error: {}",dae.getLocalizedMessage());
-            return new User();
+            return null;
         }
     }
 

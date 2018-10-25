@@ -46,8 +46,9 @@ public class HomeController {
     public String dashboard(Model model) {
         log.info("Dashboard View For User: {}",SecurityContextHolder.getContext().getAuthentication());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return "home/index";
+        return "home/dashboard";
     }
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model){
         return "register/register";

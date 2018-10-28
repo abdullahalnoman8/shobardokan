@@ -5,9 +5,9 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class ProductDetail {
+public class ProductDetails {
     private Integer id;
-    private Integer requestId;
+    private UserRequest userRequest;
     private Category category;
     private String url;
     private String productDescription;

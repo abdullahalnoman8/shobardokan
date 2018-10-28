@@ -8,7 +8,7 @@ import java.util.Date;
 public class CartItem {
     private Integer id;
     private Cart cart;
-    private ProductDetail product;
+    private ProductDetails product;
     private Double unitPrice;
     private Double unitCost;
     private Integer quantity;

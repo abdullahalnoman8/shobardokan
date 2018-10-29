@@ -1,9 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
-    <title></title>
-</head>
 
 <div th:block th:fragment="foot">
 
@@ -17,24 +14,40 @@
         </footer>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
+    <!-- jQuery -->
     <script th:src="@{vendor/jquery/jquery.min.js}"></script>
-    <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{vendor/bootstrap/js/bootstrap.min.js}"></script>
 
-    <!-- Page level plugin JavaScript-->
-    <script th:src="@{vendor/chart.js/Chart.min.js}"></script>
-    <script th:src="@{vendor/datatables/jquery.dataTables.js}"></script>
-    <script th:src="@{vendor/datatables/dataTables.bootstrap4.js}"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{vendor/metisMenu/metisMenu.min.js}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script th:src="@{js/sb-admin.min.js}"></script>
+    <!-- Morris Charts JavaScript -->
+    <script th:src="@{vendor/raphael/raphael.min.js}"></script>
+    <script th:src="@{vendor/morrisjs/morris.min.js}"></script>
+    <script th:src="@{data/morris-data.js}"></script>
 
-    <!-- Demo scripts for this page-->
-    <script th:src="@{js/demo/datatables-demo.js}"></script>
-    <script th:src="@{js/demo/chart-area-demo.js}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{dist/js/sb-admin-2.js}"></script>
+
+
+    <!--for list view in table-->
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+
+
 </div>
 
 </html>

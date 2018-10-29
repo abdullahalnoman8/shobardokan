@@ -31,8 +31,8 @@ public class PaymentRepository {
         parameterData.put("payment_method",payment.getPaymentMethod());
         parameterData.put("is_confirmed",payment.getIsConfirmed());
         parameterData.put("token",payment.getToken());
-        parameterData.put("created_at",payment.getCreatedDate());
-        parameterData.put("updated_at",payment.getUpdatedDate());
+        parameterData.put("created_at",payment.getCreatedAt());
+        parameterData.put("updated_at",payment.getUpdatedAt());
 
         try{
             Number autoGenId = jdbcInsert.executeAndReturnKey(parameterData);

@@ -29,7 +29,7 @@ public class CategoryRepository {
 
         parameterData.put("name",category.getName());
         parameterData.put("image_id",category.getImage().getId());
-        parameterData.put("created_date",category.getCreatedDate());
+        parameterData.put("created_date",category.getCreatedAt());
 
         try{
             Number autoGenId = jdbcInsert.executeAndReturnKey(parameterData);

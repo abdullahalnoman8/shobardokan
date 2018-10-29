@@ -25,7 +25,7 @@ public class TravelerPurchaseRepository {
         parameterData.put("user_id",travelerPurchase.getUser().getId());
         parameterData.put("requested_product_id",travelerPurchase.getRequestedProductId());
         parameterData.put("requested_status",travelerPurchase.getRequestedStatus());
-        parameterData.put("purchase_invoice_image_id",travelerPurchase.getPurchaseInvoiceImageId());
+        parameterData.put("purchase_invoice_image_id",travelerPurchase.getPurchaseInvoiceImage().getId());
         parameterData.put("estimated_date",travelerPurchase.getEstimatedDate());
         parameterData.put("delivered_date",travelerPurchase.getDeliveryDate());
         parameterData.put("created_date",travelerPurchase.getCreatedDate());

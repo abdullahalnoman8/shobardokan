@@ -24,8 +24,8 @@ public class UserRoleRepository {
         HashMap<String,Object> parametersData = new HashMap<>();
         parametersData.put("user_id",userRole.getUser().getId());
         parametersData.put("role_id",userRole.getRoleId());
-        parametersData.put("created_at",userRole.getCreatedDate());
-        parametersData.put("deleted_at",userRole.getDeletedDate());
+        parametersData.put("created_at",userRole.getCreatedAt());
+        parametersData.put("deleted_at",userRole.getDeletedAt());
 
         try{
             Number autoGenId = jdbcInsert.executeAndReturnKey(parametersData);

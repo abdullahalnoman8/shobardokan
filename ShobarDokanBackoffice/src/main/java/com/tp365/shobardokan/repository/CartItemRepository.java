@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 @Slf4j
 @Repository
-public class CartItemRepository {
+public class   CartItemRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -34,8 +34,8 @@ public class CartItemRepository {
         parameterData.put("tax_amount",cartItem.getTaxAmount());
         parameterData.put("total_amount",cartItem.getTotalAmount());
         parameterData.put("total_cost",cartItem.getTotalCost());
-        parameterData.put("created_date",cartItem.getCreatedDate());
-        parameterData.put("updated_at",cartItem.getUpdatedDate());
+        parameterData.put("created_date",cartItem.getCreatedAt());
+        parameterData.put("updated_at",cartItem.getUpdatedAt());
 
         try{
             Number autoGenId = jdbcInsert.executeAndReturnKey(parameterData);

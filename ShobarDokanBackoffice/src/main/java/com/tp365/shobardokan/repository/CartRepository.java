@@ -34,16 +34,16 @@ public class CartRepository {
         parameterData.put("discount_type",cart.getDiscountType());
         parameterData.put("paid_amount",cart.getPaidAmount());
         parameterData.put("due_amount",cart.getDueAmount());
-        parameterData.put("delivery_date",cart.getDeliveryDate());
+        parameterData.put("delivery_date",cart.getDeliveryAt());
         parameterData.put("user_addresses_id",cart.getUserAddress().getId());
         parameterData.put("is_confirmed",cart.getIsConfirmed());
         parameterData.put("is_complete",cart.getIsComplete());
         parameterData.put("is_canceled",cart.getIsCanceled());
         parameterData.put("status",cart.getStatus());
-//        parameterData.put("created_at",cart.getCreatedDate());
-        parameterData.put("updated_at",cart.getUpdatedDate());
-        parameterData.put("delivered_at",cart.getDeliveryDate());
-        parameterData.put("deleted_at",cart.getDeletedDate());
+//        parameterData.put("created_at",cart.getCreatedAt());
+        parameterData.put("updated_at",cart.getUpdatedAt());
+        parameterData.put("delivered_at",cart.getDeliveryAt());
+        parameterData.put("deleted_at",cart.getDeletedAt());
         try{
             Number autoGenId = jdbcInsert.executeAndReturnKey(parameterData);
             if(autoGenId !=null){

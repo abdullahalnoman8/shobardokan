@@ -2,7 +2,7 @@ package com.tp365.shobardokan.repository;
 
 import com.tp365.shobardokan.model.Cart;
 import com.tp365.shobardokan.model.CartItem;
-import com.tp365.shobardokan.model.ProductDetail;
+import com.tp365.shobardokan.model.ProductDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class TestCartItemRepository {
         Cart cart = new Cart();
         cart.setId(10);
         cartItem.setCart(cart);
-        ProductDetail productDetail = new ProductDetail();
+        ProductDetails productDetail = new ProductDetails();
         productDetail.setId(1);
         cartItem.setProduct(productDetail);
         cartItem.setUnitPrice(79896.56);

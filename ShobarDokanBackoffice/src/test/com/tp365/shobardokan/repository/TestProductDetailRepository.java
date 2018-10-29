@@ -1,8 +1,9 @@
 package com.tp365.shobardokan.repository;
 
 import com.tp365.shobardokan.model.Category;
-import com.tp365.shobardokan.model.ProductDetail;
+import com.tp365.shobardokan.model.ProductDetails;
 import com.tp365.shobardokan.model.User;
+import com.tp365.shobardokan.model.UserRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,23 +27,25 @@ public class TestProductDetailRepository {
     public void testAdd(){
         Category category = new Category();
         category.setId(1);
-        ProductDetail productDetail = new ProductDetail();
-        productDetail.setCategory(category);
-        productDetail.setRequestId(1);
-        productDetail.setUrl("https:www.abc.com");
-        productDetail.setProductDescription("Test product Description");
-        productDetail.setUnitPrice(89.63);
-        productDetail.setDeliveryFee(15.89);
-        productDetail.setStatus(ProductDetail.Status.ACCEPTED);
-        productDetail.setCostPrice(789.63);
-        productDetail.setComments("Test Comment");
+        ProductDetails productDetails = new ProductDetails();
+        productDetails.setCategory(category);
+        UserRequest userRequest = new UserRequest();
+        userRequest.setId(1);
+        productDetails.setUserRequest(userRequest);
+        productDetails.setUrl("https:www.abc.com");
+        productDetails.setProductDescription("Test product Description");
+        productDetails.setUnitPrice(89.63);
+        productDetails.setDeliveryFee(15.89);
+        productDetails.setStatus(ProductDetails.Status.ACCEPTED);
+        productDetails.setCostPrice(789.63);
+        productDetails.setComments("Test Comment");
         User user = new User();
         user.setId(3);
-        productDetail.setUser(user);
+        productDetails.setUser(user);
 
-        ProductDetail savedProductDetail = productDetailRepository.add(productDetail);
-        Assert.assertNotNull(savedProductDetail);
-        log.info("Added Product Detail: {}",savedProductDetail);
+        ProductDetails savedProductDetails = productDetailRepository.add(productDetails);
+        Assert.assertNotNull(savedProductDetails);
+        log.info("Added Product Detail: {}",savedProductDetails);
 
     }
 }

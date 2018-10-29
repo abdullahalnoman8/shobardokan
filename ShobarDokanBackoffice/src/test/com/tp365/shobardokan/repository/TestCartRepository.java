@@ -35,7 +35,6 @@ public class TestCartRepository {
         cart.setDiscountType(Cart.DiscountType.FIXED_AMOUNT);
         cart.setPaidAmount(8796.63);
         cart.setDueAmount(2541.85);
-        cart.setDeliveryDate(new Date());
         UserAddress userAddress = new UserAddress();
         userAddress.setId(1);
         cart.setUserAddress(userAddress);
@@ -43,7 +42,7 @@ public class TestCartRepository {
         cart.setIsComplete(true);
         cart.setIsCanceled(false);
         cart.setStatus(Cart.Status.DELIVERED);
-        cart.setDeliveryDate(new Date());
+        cart.setDeliveryAt(new Date());
 
         Cart savedCart = cartRepository.add(cart);
         Assert.assertNotNull(savedCart.getId());

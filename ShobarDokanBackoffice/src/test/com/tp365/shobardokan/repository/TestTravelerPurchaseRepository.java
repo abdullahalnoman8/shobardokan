@@ -1,5 +1,6 @@
 package com.tp365.shobardokan.repository;
 
+import com.tp365.shobardokan.model.Image;
 import com.tp365.shobardokan.model.TravelerPurchase;
 import com.tp365.shobardokan.model.User;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,9 @@ public class TestTravelerPurchaseRepository {
         travelerPurchase.setUser(user);
         travelerPurchase.setRequestedProductId(1);
         travelerPurchase.setRequestedStatus(TravelerPurchase.RequestedStatus.WAITING);
-        travelerPurchase.setPurchaseInvoiceImageId(2);
+        Image image = new Image();
+        image.setId(1);
+        travelerPurchase.setPurchaseInvoiceImage(image);
         travelerPurchase.setEstimatedDate(new Date());
         travelerPurchase.setDeliveryDate(new Date());
         travelerPurchase.setComments("Comments");

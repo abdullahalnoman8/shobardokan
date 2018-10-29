@@ -9,6 +9,6 @@ public class Category {
    private Integer id;
    private String name;
    private Image image;
-   private Date createdDate;
+   private Date createdAt;
 
 }

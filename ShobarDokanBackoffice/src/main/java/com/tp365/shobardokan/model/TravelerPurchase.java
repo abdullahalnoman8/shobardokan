@@ -9,7 +9,7 @@ public class TravelerPurchase {
     private Integer id;
     private User user;
     private Integer requestedProductId;
-    private Integer purchaseInvoiceImageId;
+    private Image purchaseInvoiceImage;
     private RequestedStatus requestedStatus;
     private Date estimatedDate;
     private Date deliveryDate;

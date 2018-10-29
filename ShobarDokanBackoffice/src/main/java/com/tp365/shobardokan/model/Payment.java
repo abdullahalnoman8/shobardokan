@@ -12,8 +12,8 @@ public class Payment {
     private PaymentMethod paymentMethod;
     private Boolean isConfirmed;
     private String token;
-    private Date createdDate;
-    private Date updatedDate;
+    private Date createdAt;
+    private Date updatedAt;
 
     public enum PaymentMethod{
         CARD,MFS,COD

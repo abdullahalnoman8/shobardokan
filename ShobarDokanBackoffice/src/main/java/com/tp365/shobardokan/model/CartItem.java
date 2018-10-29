@@ -15,6 +15,6 @@ public class CartItem {
     private Double taxAmount;
     private Double totalAmount;
     private Double totalCost;
-    private Date createdDate;
-    private Date updatedDate;
+    private Date createdAt;
+    private Date updatedAt;
 }

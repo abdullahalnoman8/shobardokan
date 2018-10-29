@@ -9,6 +9,6 @@ public class UserRole {
     private Integer id;
     private User user;
     private Integer roleId;
-    private Date createdDate;
-    private Date deletedDate;
+    private Date createdAt;
+    private Date deletedAt;
 }

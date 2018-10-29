@@ -15,16 +15,16 @@ public class Cart {
     private Double discountAmount;
     private Double paidAmount;
     private Double dueAmount;
-    private Data dueDate;
+    private Date dueDate;
     private Boolean isConfirmed;
     private Boolean isComplete;
     private Boolean isCanceled;
     private Status status;
     private UserAddress userAddress;
-    private Date createdDate;
-    private Date updatedDate;
-    private Date deliveryDate;
-    private Date deletedDate;
+    private Date createdAt;
+    private Date updatedAt;
+    private Date deliveryAt;
+    private Date deletedAt;
 
 
     public enum  DiscountType{

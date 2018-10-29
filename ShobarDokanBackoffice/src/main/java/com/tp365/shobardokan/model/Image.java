@@ -12,5 +12,5 @@ public class Image {
     private int fileSize;
     private String imageHash;
     private String fileType;
-    private Date createdDate;
+    private Date createdAt;
 }

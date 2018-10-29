@@ -12,8 +12,9 @@ public class UserRequest {
     private String productUrl;
     private Status status;
     private Integer quantity;
-    private Date createdDate;
-    private Date updatedDate;
+    private Date createdAt;
+    private Date updatedAt;
+    private String comments;
 
     public enum Status{
         OPEN,CLOSED

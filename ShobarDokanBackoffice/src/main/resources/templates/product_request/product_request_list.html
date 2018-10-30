@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin_panel_base}">
+<div layout:fragment="page_content">
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Request List</li>
+        </ol>
+
+        <div class="mb-3" id="fades">
+            <div class="span12">
+                <div th:if="${success != null}">
+                    <div class="alert alert-success">
+                        <strong th:text="${success}"></strong>
+                    </div>
+                </div>
+                <div th:if="${error != null}">
+                    <div class="alert alert-danger">
+                        <strong th:text="${error}"></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                My Request List
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Product URL</th>
+                            <th>Status</th>
+                            <th>Quantity</th>
+                            <!--<th>Created Date</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="request,iterationStatus : ${requestedProductList}">
+                            <td th:text="${iterationStatus.count}">1</td>
+                            <td th:text="${request.productUrl}"></td>
+                            <td th:text="${request.status}"></td>
+                            <<td th:text="${request.quantity}"></td>
+                            <!--<td th:text="${request.createdAt}"></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</HTML>
+<script>
+    $("#fades").fadeOut(8000, function() { $(this).remove(); });
+</script>

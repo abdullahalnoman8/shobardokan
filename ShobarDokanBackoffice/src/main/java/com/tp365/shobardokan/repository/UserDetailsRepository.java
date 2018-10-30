@@ -28,18 +28,18 @@ public class UserDetailsRepository {
         }
         HashMap<String,Object> parameterData = new HashMap<>();
         parameterData.put("user_id",userDetails.getUser().getId());
-        parameterData.put("first_name",userDetails.getFirstname());
-        parameterData.put("last_name",userDetails.getLastname());
+        parameterData.put("first_name",userDetails.getFirst_name());
+        parameterData.put("last_name",userDetails.getLast_name());
         parameterData.put("gender",userDetails.getGender());
-        parameterData.put("date_of_birth",userDetails.getDateOfBirth());
-        parameterData.put("present_address",userDetails.getPresentAddress());
-        parameterData.put("mailing_address",userDetails.getMailingAddress());
-        parameterData.put("emergency_contact_no",userDetails.getEmergencyContactNumber());
+        parameterData.put("date_of_birth",userDetails.getDate_of_birth());
+        parameterData.put("present_address",userDetails.getPresent_address());
+        parameterData.put("mailing_address",userDetails.getMailing_address());
+        parameterData.put("emergency_contact_no",userDetails.getEmergency_contact_number());
         parameterData.put("created_date",userDetails.getCreatedDate());
 
         try{
             Number autoGenId = jdbcInsert.executeAndReturnKey(parameterData);
-            if(autoGenId !=null){
+            if(autoGenId != null){
                 userDetails.setId(autoGenId.intValue());
                 return userDetails;
             }
@@ -47,7 +47,6 @@ public class UserDetailsRepository {
             dae.getLocalizedMessage();
             return userDetails;
         }
-
         return userDetails;
     }
 

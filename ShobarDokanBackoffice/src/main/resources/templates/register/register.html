@@ -12,6 +12,11 @@
                     <h3 class="panel-title">Please Register</h3>
                 </div>
                 <div class="panel-body">
+                    <div th:if="${error != null}">
+                        <div class="alert alert-danger">
+                            <strong th:text="${error}"></strong>
+                        </div>
+                    </div>
                     <form class="form-group" th:action="@{/register}" id="register" th:method="post" modelAttribute="register" commandName="register">
                         <fieldset>
                             <div class="form-group">

@@ -51,6 +51,7 @@ public class HomeController {
                 return "redirect:login";
             } else {
                 redirectAttributes.addFlashAttribute("error","Sorry !! Registration Failed");
+                return "redirect:register";
             }
         }
         return "register/register";

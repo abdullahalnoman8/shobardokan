@@ -40,7 +40,6 @@ public class CartRepository {
         parameterData.put("is_complete",cart.getIsComplete());
         parameterData.put("is_canceled",cart.getIsCanceled());
         parameterData.put("status",cart.getStatus());
-//        parameterData.put("created_at",cart.getCreatedAt());
         parameterData.put("updated_at",cart.getUpdatedAt());
         parameterData.put("delivered_at",cart.getDeliveryAt());
         parameterData.put("deleted_at",cart.getDeletedAt());

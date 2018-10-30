@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <HTML xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{home_page_base}">
 
 <div layout:fragment="page_content">
@@ -12,6 +12,18 @@
                     <h3 class="panel-title">Please Sign In</h3>
                 </div>
                 <div class="panel-body">
+                    <div class="span12">
+                        <div th:if="${success !=null}">
+                            <div class="alert alert-success">
+                                <strong th:text="${success}"></strong>
+                            </div>
+                        </div>
+                        <div th:if="${error != null}">
+                            <div class="alert alert-danger">
+                                <strong th:text="${error}"></strong>
+                            </div>
+                        </div>
+                    </div>
                     <form class="form-group" th:action="@{/login}" method="post" role="form" id="formSubmit">
                         <fieldset>
                             <div class="form-group">
@@ -50,11 +62,4 @@
             </div>
         </div>
     </div>
-    <!--<style>-->
-        <!--.custom-group {-->
-            <!--padding-top: 5px;-->
-            <!--text-align: center;-->
-        <!--}-->
-
-    <!--</style>-->
 </div>

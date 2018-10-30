@@ -28,7 +28,7 @@ public class UserRepository {
     private JdbcTemplate jdbcTemplate;
 
 
-    public User save(User user) {
+    public User add(User user) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("user")
                 .usingGeneratedKeyColumns("id");

@@ -1,6 +1,5 @@
 package com.tp365.shobardokan.controller;
 
-import com.tp365.shobardokan.model.User;
 import com.tp365.shobardokan.model.UserRequest;
 import com.tp365.shobardokan.service.UserRequestService;
 import com.tp365.shobardokan.service.UserService;
@@ -35,12 +34,9 @@ public class UserRequestController {
     }
 
     @RequestMapping("/add")
-    public String add(@ModelAttribute("add") UserRequest userRequest, Principal principal,
+    public String add(@ModelAttribute("add") UserRequest userRequest,
                       HttpServletRequest request, final RedirectAttributes redirectAttributes){
-
-        User user = userService.findUserByUserName(principal.getName());
         if (request.getMethod().equals(RequestMethod.POST.toString())) {
-            userRequest.setUser(user);
             if (userRequestService.add(userRequest)) {
                 redirectAttributes.addFlashAttribute("success", "Request received Successfully");
                 return "redirect:list";

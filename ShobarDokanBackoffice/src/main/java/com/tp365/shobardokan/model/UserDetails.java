@@ -9,13 +9,13 @@ public class UserDetails {
 
     private Integer id;
     private User user;
-    private String firstname;
-    private String lastname;
+    private String first_name;
+    private String last_name;
     private Gender gender;
-    private Date dateOfBirth;
-    private String presentAddress;
-    private String mailingAddress;
-    private String emergencyContactNumber;
+    private Date date_of_birth;
+    private String present_address;
+    private String mailing_address;
+    private String emergency_contact_number;
     private Date createdDate;
 
     public enum Gender{

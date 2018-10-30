@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -39,23 +38,13 @@ public class UserRequestController {
     public String add(@ModelAttribute("add") UserRequest userRequest, Principal principal,
                       HttpServletRequest request, final RedirectAttributes redirectAttributes){
 
-        String userName = principal.getName();
-        int userId = userService.findUserByUserName(userName).getId();
+        User user = userService.findUserByUserName(principal.getName());
         if (request.getMethod().equals(RequestMethod.POST.toString())) {
-            UserRequest ur = new UserRequest();
-            User user = new User();
-            user.setId(userId);
-            ur.setUser(user);
-            ur.setProductUrl(userRequest.getProductUrl());
-            ur.setQuantity(userRequest.getQuantity());
-            ur.setStatus(UserRequest.Status.OPEN);
-            ur.setCreatedAt(new Date());
-            ur.setUpdatedAt(new Date());
-            ur.setComments(userRequest.getComments());
-            if (userRequestService.add(ur)) {
+            userRequest.setUser(user);
+            if (userRequestService.add(userRequest)) {
                 redirectAttributes.addFlashAttribute("success", "Request received Successfully");
                 return "redirect:list";
-            }  else {
+            } else {
                 redirectAttributes.addFlashAttribute("error", "Request received Failed");
                 return "redirect:/requestProduct/add";
             }

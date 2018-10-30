@@ -9,7 +9,18 @@
                     <a th:href="@{/dashboard}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a th:href="@{/productDetailsList}"><i class="fa fa-table fa-fw"></i>Products</a>
+                    <a href="#"><i class="fa fa-table fa-fw"></i>Products<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a th:href="@{@{/productDetailsList}}">Product Details List</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/requestProduct/add}">Request Product</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/requestProduct/list}">Requested Product List</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>

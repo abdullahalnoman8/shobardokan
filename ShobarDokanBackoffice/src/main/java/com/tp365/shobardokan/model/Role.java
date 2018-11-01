@@ -5,6 +5,9 @@ import lombok.Data;
 @Data
 public class Role {
     private Integer id;
-    private String name;
+    private role name;
 
+    public enum role {
+        ADMIN, USER, TRAVELER
+    }
 }

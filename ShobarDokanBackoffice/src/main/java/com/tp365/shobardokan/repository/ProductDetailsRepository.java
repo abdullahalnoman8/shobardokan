@@ -4,6 +4,7 @@ import com.tp365.shobardokan.model.Category;
 import com.tp365.shobardokan.model.ProductDetails;
 import com.tp365.shobardokan.model.User;
 import com.tp365.shobardokan.model.UserRequest;
+import com.tp365.shobardokan.model.enums.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Repository
@@ -129,7 +133,7 @@ public class ProductDetailsRepository {
             productDetails.setProductDescription(resultSet.getString("product_description"));
             productDetails.setUnitPrice(resultSet.getDouble("unit_price"));
             productDetails.setDeliveryFee(resultSet.getDouble("delivery_fee"));
-            productDetails.setStatus(ProductDetails.Status.valueOf(resultSet.getString("status")));
+            productDetails.setStatus(Status.valueOf(resultSet.getString("status")));
             productDetails.setCostPrice(resultSet.getDouble("cost_price"));
             productDetails.setEstimatedDeliveryDate(resultSet.getDate("estimated_delivery_date"));
             productDetails.setComments(resultSet.getString("comments"));

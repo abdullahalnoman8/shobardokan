@@ -10,5 +10,4 @@ public class Category {
    private String name;
    private Image image;
    private Date createdAt;
-
 }

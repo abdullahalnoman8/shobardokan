@@ -1,6 +1,7 @@
 package com.tp365.shobardokan.repository;
 
 import com.tp365.shobardokan.model.Role;
+import com.tp365.shobardokan.model.enums.Roles;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -38,7 +39,7 @@ public class RoleRepository {
                 public Role mapRow(ResultSet resultSet, int i) throws SQLException {
                     Role role = new Role();
                     role.setId(resultSet.getInt("id"));
-                    role.setName(resultSet.getString("name"));
+                    role.setRoles(Roles.valueOf(resultSet.getString("name")));
                     return role;
                 }
             });

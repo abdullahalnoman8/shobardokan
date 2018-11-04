@@ -1,5 +1,6 @@
 package com.tp365.shobardokan.model;
 
+import com.tp365.shobardokan.model.enums.Status;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,8 +21,4 @@ public class ProductDetails {
     private Date estimatedDeliveryDate;
     private String comments;
     private User user;
-
-    public enum Status {
-        WAITING, FINISHED, ON_PROCESS, ACCEPTED
-    }
 }

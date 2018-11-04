@@ -24,7 +24,7 @@
                                       th:action="@{/productDetails/editCheckedProduct}" th:method="POST"
                                       modelAttribute="productDetails" commandName="productDetails">
 
-                                    <input type="" class="form-control" th:value="${productDetails.id}" name="id"/>
+                                    <input type="hidden" class="form-control" th:value="${productDetails.id}" name="id"/>
                                     <input type="hidden" class="form-control"
                                            th:value="${productDetails.userRequest.id}" name="userRequest.id"/>
                                     <input type="hidden" class="form-control" th:value="${productDetails.user.id}"
@@ -76,7 +76,7 @@
                                         <div class="col-lg-5 col-md-5 ui-sortable">
                                             <select class="form-control" name="status">
                                                 <option value="">--- Select ---</option>
-                                                <option th:each="statusEnum : ${T(com.tp365.shobardokan.model.ProductDetails.Status).values()}"
+                                                <option th:each="statusEnum : ${T(com.tp365.shobardokan.model.enums.Status).values()}"
                                                         th:value="${statusEnum}" th:text="${statusEnum}"
                                                         th:selected="${statusEnum == productDetails.status}">
                                                 </option>

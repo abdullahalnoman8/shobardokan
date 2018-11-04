@@ -74,7 +74,7 @@
                                         <div class="col-lg-5 col-md-5 ui-sortable">
                                             <select class="form-control" name="status">
                                                 <option value="">--- Select ---</option>
-                                                <option th:each="statusEnum : ${T(com.tp365.shobardokan.model.ProductDetails.Status).values()}"
+                                                <option th:each="statusEnum : ${T(com.tp365.shobardokan.model.enums.Status).values()}"
                                                         th:value="${statusEnum}" th:text="${statusEnum}">
                                                 </option>
                                             </select>

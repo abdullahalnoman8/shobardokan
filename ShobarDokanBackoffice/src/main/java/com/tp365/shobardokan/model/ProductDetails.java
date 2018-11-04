@@ -21,4 +21,6 @@ public class ProductDetails {
     private Date estimatedDeliveryDate;
     private String comments;
     private User user;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date priceValidTill;
 }

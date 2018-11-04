@@ -20,7 +20,7 @@ public class ProductDetailsService {
         return productDetailRepository.findAll();
     }
 
-    public Object findById(Integer id) {
+    public ProductDetails findById(Integer id) {
         return productDetailRepository.findById(id);
     }
 

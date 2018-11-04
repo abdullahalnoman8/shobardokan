@@ -3,6 +3,7 @@ package com.tp365.shobardokan.service;
 import com.tp365.shobardokan.model.Role;
 import com.tp365.shobardokan.model.User;
 import com.tp365.shobardokan.model.UserRole;
+import com.tp365.shobardokan.model.enums.Roles;
 import com.tp365.shobardokan.repository.RoleRepository;
 import com.tp365.shobardokan.repository.UserRepository;
 import com.tp365.shobardokan.repository.UserRoleRepository;
@@ -37,7 +38,7 @@ public class UserService {
             if(savedUser.getId() !=null){
                 UserRole userRole = new UserRole();
                 userRole.setUser(user);
-                Role role = roleRepository.findRoleNameByname("User");
+                Role role = roleRepository.findRoleNameByname(Roles.USER.name());
                 if(role.getId() != null){
                     savedUser.setRole(role);
                     userRole.setRoleId(role.getId());

@@ -5,10 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @Repository
@@ -43,5 +48,26 @@ public class CategoryRepository {
             return category;
         }
         return category;
+    }
+
+
+    public List<Category> getProductCategoryList() {
+        String query = "SELECT * from category";
+        try {
+            return jdbcTemplate.query(query, new CategoryRowMaper());
+        } catch (DataAccessException dae) {
+            log.error("User Data Not Found, Error: {}", dae.getLocalizedMessage());
+        }
+        return new ArrayList<>();
+    }
+
+    private class CategoryRowMaper implements RowMapper<Category> {
+        @Override
+        public Category mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+            Category category = new Category();
+            category.setId(resultSet.getInt("id"));
+            category.setName(resultSet.getString("name"));
+            return category;
+        }
     }
 }

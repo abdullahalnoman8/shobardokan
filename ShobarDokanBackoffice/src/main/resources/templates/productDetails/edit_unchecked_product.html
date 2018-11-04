@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:form="http://www.w3.org/1999/xhtml" xmlns:th=""
+      layout:decorate="~{admin_panel_base}">
+<div layout:fragment="page_content">
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Update</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Edit Unchecked Product
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form role="form" class="form-horizontal group-border hover-stripped"
+                                      th:action="@{/productDetails/editUncheckedProduct}" th:method="POST"
+                                      modelAttribute="productDetails" commandName="productDetails">
+
+                                    <input type="hidden" class="form-control" th:value="${requestedProductInfo.id}"
+                                           name="userRequest.id"/>
+                                    <input type="hidden" class="form-control" th:value="${requestedProductInfo.user.id}"
+                                           name="user.id"/>
+
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Prodct Url</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <input class="form-control" type="text"
+                                                   th:value="${requestedProductInfo.productUrl}"
+                                                   name="url"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Prodct Category</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <select class="form-control" name="category.id">
+                                                <option value="">--- Select ---</option>
+                                                <option th:each="category : ${productCategory}"
+                                                        th:value="${category.id}" th:text="${category.name}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Description</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <textarea name="productDescription" type="text"
+                                                      class="form-control" placeholder="Product Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Unit Price</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <input name="unitPrice" type="number"
+                                                   class="form-control" placeholder="Price"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Delivery Fee</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <input name="deliveryFee" type="number"
+                                                   class="form-control" placeholder="Delivery Fee"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Status</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <select class="form-control" name="status">
+                                                <option value="">--- Select ---</option>
+                                                <option th:each="statusEnum : ${T(com.tp365.shobardokan.model.ProductDetails.Status).values()}"
+                                                        th:value="${statusEnum}" th:text="${statusEnum}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Cost Price</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <input name="costPrice" type="number"
+                                                   class="form-control" placeholder="Cost Price"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Estimated Delivery
+                                            Date</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <input type="date" name="estimatedDeliveryDate"
+                                                   th:value="${#dates.format(estimatedDeliveryDate, 'yyyy-MM-dd')}"
+                                                   class="form-control" placeholder="Format: yyyy-mm-dd">
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Comments</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <textarea name="comments" type="text"
+                                                      class="form-control" placeholder="Comments"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label"></label>
+                                        <div class="col-lg-2 col-md-2 ui-sortable">
+                                            <input type="submit" class="form-control btn btn-primary btn"
+                                                   value="Submit">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#startDate").datetimepicker({
+                viewMode: 'months'
+            });
+        });
+
+
+
+//        $(function () {
+//            alert("test");
+//        });
+//        $(document).ready(function () {
+//            $("#dtp").datetimepicker({
+//                format: "yyyy-mm-dd",
+//                autoclose: true,
+//                todayBtn: true,
+//                minView: 2
+//            });
+//        });
+    </script>
+
+
+
+</div>

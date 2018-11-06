@@ -67,6 +67,16 @@ public class UserRequestRepository {
         return new ArrayList<>();
     }
 
+    public boolean updateUserRequestStatus(Integer id) {
+        String query = "UPDATE user_requests SET status = ? WHERE id = ?";
+        try {
+            return jdbcTemplate.update(query, UserRequest.Status.CLOSED.name(), id) == 1;
+        } catch (DataAccessException e) {
+            log.error("Update failed for object: {}. Error: {}", id, e.getLocalizedMessage());
+            return false;
+        }
+    }
+
     class UserRequestRowMapper implements RowMapper<UserRequest> {
         @Override
         public UserRequest mapRow(ResultSet rs, int i) throws SQLException {

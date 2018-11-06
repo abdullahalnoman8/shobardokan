@@ -5,10 +5,10 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class UserRole {
+public class UsersRoles {
     private Integer id;
     private User user;
-    private Integer roleId;
+    private Role role;
     private Date createdAt;
     private Date deletedAt;
 }

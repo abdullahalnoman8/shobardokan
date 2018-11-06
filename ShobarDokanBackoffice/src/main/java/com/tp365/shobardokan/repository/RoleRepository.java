@@ -20,11 +20,11 @@ public class RoleRepository {
     private JdbcTemplate jdbcTemplate;
 
 
-    public String findRoleNameById(Integer roleId) {
+    public String findRoleNameById(Integer userId) {
 
         String query = "SELECT name FROM role WHERE id = ?";
         try {
-            return jdbcTemplate.queryForObject(query, new Object[]{roleId}, String.class);
+            return jdbcTemplate.queryForObject(query, new Object[]{userId}, String.class);
         } catch (DataAccessException e) {
             log.error("Getting Role Name Failed With Query: {}. Error: {}", query, e.getMessage());
             return "";
@@ -39,7 +39,7 @@ public class RoleRepository {
                 public Role mapRow(ResultSet resultSet, int i) throws SQLException {
                     Role role = new Role();
                     role.setId(resultSet.getInt("id"));
-                    role.setRoles(Roles.valueOf(resultSet.getString("name")));
+                    role.setRole(Roles.valueOf(resultSet.getString("name")));
                     return role;
                 }
             });

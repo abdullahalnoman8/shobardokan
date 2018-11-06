@@ -3,6 +3,7 @@ package com.tp365.shobardokan.service;
 import com.tp365.shobardokan.model.ProductDetails;
 import com.tp365.shobardokan.model.UserRequest;
 import com.tp365.shobardokan.repository.ProductDetailsRepository;
+import com.tp365.shobardokan.repository.UserRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ import java.util.List;
 public class ProductDetailsService {
     @Autowired
     private ProductDetailsRepository productDetailRepository;
+    @Autowired
+    private UserRequestRepository userRequestRepository;
 
     public List<ProductDetails> findAll() {
         return productDetailRepository.findAll();
@@ -25,7 +28,10 @@ public class ProductDetailsService {
     }
 
     public boolean add(ProductDetails productDetails) {
-        return productDetailRepository.add(productDetails).getId() != null;
+        if (productDetailRepository.add(productDetails).getId() != null){
+            return userRequestRepository.updateUserRequestStatus(productDetails.getUserRequest().getId());
+        }
+        return false;
     }
 
     public List<UserRequest> requestedProductList() {

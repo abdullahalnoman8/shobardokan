@@ -1,8 +1,8 @@
 package com.tp365.shobardokan.repository;
 
 
-import com.tp365.shobardokan.model.Role;
 import com.tp365.shobardokan.model.User;
+import com.tp365.shobardokan.model.enums.UserStatus;
 import com.tp365.shobardokan.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class UserRepository {
         parameterMap.put("password",user.getPassword());
         parameterMap.put("user_status", user.getUserStatus());
         parameterMap.put("is_active",user.getIsActive());
-        parameterMap.put("last_active",user.getLastActiveDate());
+        parameterMap.put("last_active",user.getLastActive());
         parameterMap.put("created_date",user.getCreatedDate());
 
 
@@ -75,9 +75,8 @@ public class UserRepository {
     }
 
     public User findUserByUserName(String userName) {
-        String query = "SELECT user.*,users_roles.* FROM user,users_roles " +
-                "WHERE user.username= ? " +
-                "AND user.id = users_roles.user_id";
+        String query = "SELECT user.* FROM USER\n" +
+                "WHERE user.username= ?";
         try{
             return jdbcTemplate.queryForObject(query,new Object[]{userName},new UserRowMapper());
         }catch (DataAccessException dae){
@@ -96,12 +95,13 @@ public class UserRepository {
             user.setPassword(resultSet.getString("password"));
             user.setPhone(resultSet.getString("phone"));
             user.setEmail(resultSet.getString("email"));
-            Role role = new Role();
-            role.setId(resultSet.getInt("role_id"));
-            user.setRole(role);
-            user.setUserStatus(User.UserStatus.valueOf(resultSet.getString("user_status")));
+            // todo do not populate roles from here
+//            Role role = new Role();
+//            role.addId(resultSet.getInt("role_id"));
+//            user.setRole(role);
+            user.setUserStatus(UserStatus.valueOf(resultSet.getString("user_status")));
             user.setIsActive(resultSet.getBoolean("is_active"));
-            user.setLastActiveDate(resultSet.getDate("last_active"));
+            user.setLastActive(resultSet.getDate("last_active"));
 
             user.setCreatedDate(Utils.convertTimeStampToDate(resultSet.getTimestamp("created_date")));
             return user;

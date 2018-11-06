@@ -57,8 +57,20 @@ public class UserRequestRepository {
         return userRequest;
     }
 
+    public List<UserRequest> findAll() {
+        String query = "SELECT username, user_requests.* FROM user INNER JOIN " +
+                "user_requests ON user.id = user_requests.user_id";
+        try {
+            return jdbcTemplate.query(query, new UserRequestRowMapper());
+        } catch (DataAccessException dae) {
+            log.error("User Request Product Not Found, Error: {}", dae.getLocalizedMessage());
+        }
+        return new ArrayList<>();
+    }
+
     public List<UserRequest> findAllRequestedProductByUserId(int userId) {
-        String query = "SELECT * from user_requests WHERE user_id = ?";
+        String query = "SELECT username, user_requests.* FROM user INNER JOIN " +
+                "user_requests ON user.id = user_requests.user_id WHERE status='OPEN' and user_id = ?";
         try {
             return jdbcTemplate.query(query, new Object[]{userId}, new UserRequestRowMapper());
         } catch (DataAccessException dae) {
@@ -84,6 +96,7 @@ public class UserRequestRepository {
             userRequest.setId(rs.getInt("id"));
             User user = new User();
             user.setId(rs.getInt("user_id"));
+            user.setUsername(rs.getString("username"));
             userRequest.setUser(user);
             userRequest.setProductUrl(rs.getString("product_url"));
             userRequest.setQuantity(rs.getInt("quantity"));

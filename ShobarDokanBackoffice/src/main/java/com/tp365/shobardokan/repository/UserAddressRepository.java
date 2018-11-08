@@ -36,7 +36,6 @@ public class UserAddressRepository {
                 return userAddress;
             }
         }catch (DataAccessException dae){
-            dae.getLocalizedMessage();
             log.error("User Address Info Add Failed, Error: {}",dae.getLocalizedMessage());
             return userAddress;
         }

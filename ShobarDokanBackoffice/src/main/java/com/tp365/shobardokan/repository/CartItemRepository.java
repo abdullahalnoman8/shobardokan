@@ -44,7 +44,6 @@ public class   CartItemRepository {
                 return cartItem;
             }
         }catch (DataAccessException dae){
-            dae.getLocalizedMessage();
             log.error("Cart Item Adding Failed, Error: {}",dae.getLocalizedMessage());
             return cartItem;
         }

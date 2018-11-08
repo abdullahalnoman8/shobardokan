@@ -41,7 +41,6 @@ public class VerificationRepository {
                 return verification;
             }
         }catch (DataAccessException dae){
-            dae.getLocalizedMessage();
             log.info("Data added failed in Verification Table Error: {}",dae.getLocalizedMessage());
             return verification;
         }

@@ -50,7 +50,7 @@ public class UserRequestRepository {
             }
 
         } catch (DataAccessException dae) {
-            log.error(dae.getMessage());
+            log.error("Error Found %s And Error Message",UserRepository.class.getName(),dae.getMessage());
             log.info("UserRequest did not added: {}", dae.getLocalizedMessage());
             return userRequest;
         }

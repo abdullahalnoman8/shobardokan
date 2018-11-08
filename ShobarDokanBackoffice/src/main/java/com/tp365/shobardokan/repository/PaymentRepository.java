@@ -41,7 +41,6 @@ public class PaymentRepository {
                 return payment;
             }
         }catch (DataAccessException dae){
-            dae.getLocalizedMessage();
             log.error("Payment Failed, Error: {}",dae.getLocalizedMessage());
             return payment;
         }

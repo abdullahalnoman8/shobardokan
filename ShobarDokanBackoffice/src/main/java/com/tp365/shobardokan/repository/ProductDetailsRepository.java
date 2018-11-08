@@ -47,12 +47,10 @@ public class ProductDetailsRepository {
             Number autoGenId = simpleJdbcInsert.executeAndReturnKey(parameterData);
             if (autoGenId != null) {
                 productDetails.setId(autoGenId.intValue());
-                log.info("Product Details Added with ID {}", autoGenId);
-                log.info("Product Details Added with Data {}", productDetails.toString());
+                log.info("Product Details Added with ID {}, And Data {}", autoGenId,productDetails.toString());
                 return productDetails;
             }
         } catch (DataAccessException dae) {
-            log.error(dae.getMessage());
             log.info("Product Detail did not added: {}", dae.getLocalizedMessage());
             return productDetails;
         }

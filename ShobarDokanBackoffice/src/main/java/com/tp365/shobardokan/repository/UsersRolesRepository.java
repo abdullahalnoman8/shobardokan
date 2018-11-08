@@ -23,6 +23,8 @@ import java.util.List;
 public class UsersRolesRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private RoleRepository roleRepository;
 
     public UsersRoles add(UsersRoles usersRoles){
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
@@ -31,6 +33,9 @@ public class UsersRolesRepository {
 
         HashMap<String,Object> parametersData = new HashMap<>();
         parametersData.put("user_id", usersRoles.getUser().getId());
+        if (usersRoles.getRole().getId() == null && usersRoles.getRole().getRole() != null) {
+	        usersRoles.setRole(roleRepository.findByName(usersRoles.getRole().getRole().toString()));
+        }
         parametersData.put("role_id", usersRoles.getRole().getId());
         parametersData.put("created_at", usersRoles.getCreatedAt());
         parametersData.put("deleted_at", usersRoles.getDeletedAt());
@@ -43,8 +48,8 @@ public class UsersRolesRepository {
             }
         }catch (DataAccessException dae){
             dae.getLocalizedMessage();
-            log.error("User Role Info Add Failed, Error: {}",dae.getLocalizedMessage());
-            return usersRoles;
+            log.error("Failed to add UserRole, Error: {}", dae.getLocalizedMessage());
+            log.error("Parameters: {}", parametersData);
         }
         return usersRoles;
     }

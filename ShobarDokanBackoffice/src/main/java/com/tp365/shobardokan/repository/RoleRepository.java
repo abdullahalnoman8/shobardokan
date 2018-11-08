@@ -31,7 +31,7 @@ public class RoleRepository {
         }
     }
 
-    public Role findRoleNameByname(String uname) {
+    public Role findByName(String uname) {
         String query = "SELECT * FROM role WHERE name = ?";
         try {
             return jdbcTemplate.queryForObject(query, new Object[]{uname}, new RowMapper<Role>() {

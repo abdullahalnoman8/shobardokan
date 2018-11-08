@@ -1,8 +1,11 @@
 package com.tp365.shobardokan.utils;
 
+import com.tp365.shobardokan.model.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 public class Utils {
 
@@ -35,5 +38,10 @@ public class Utils {
         }
         return new Timestamp(date.getTime());
     }
-
+	
+	public static Set<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
+		Set<GrantedAuthority> authorities = new HashSet<>();
+		roles.stream().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRole().name())));
+		return authorities;
+	}
 }

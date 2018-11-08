@@ -35,7 +35,7 @@ public class UserService {
 //            if(savedUser.getId() !=null){
 //                UsersRoles usersRoles = new UsersRoles();
 //                usersRoles.setUser(user);
-//                Role role = roleRepository.findRoleNameByname(Roles.USER.name());
+//                Role role = roleRepository.findByName(Roles.USER.name());
 //                if(role.getId() != null){
 //                    savedUser.setRole(role);
 //                    usersRoles.setRoleId(role.getId());

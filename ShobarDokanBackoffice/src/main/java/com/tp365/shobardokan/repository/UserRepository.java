@@ -3,7 +3,6 @@ package com.tp365.shobardokan.repository;
 
 import com.tp365.shobardokan.model.User;
 import com.tp365.shobardokan.model.enums.UserStatus;
-import com.tp365.shobardokan.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -69,14 +68,14 @@ public class UserRepository {
         try{
            return  jdbcTemplate.query(query,new UserRowMapper());
         }catch (DataAccessException dae){
-            log.error("User Data Not Found, Error: {}",dae.getLocalizedMessage());
+            log.error("User Data Not Found, Error: {}", dae.getLocalizedMessage());
         }
         return new ArrayList<>();
     }
 
     public User findUserByUserName(String userName) {
         String query = "SELECT user.* FROM USER\n" +
-                "WHERE user.username= ?";
+                "WHERE user.username = ?";
         try{
             return jdbcTemplate.queryForObject(query,new Object[]{userName},new UserRowMapper());
         }catch (DataAccessException dae){
@@ -103,7 +102,7 @@ public class UserRepository {
             user.setIsActive(resultSet.getBoolean("is_active"));
             user.setLastActive(resultSet.getDate("last_active"));
 
-            user.setCreatedDate(Utils.convertTimeStampToDate(resultSet.getTimestamp("created_date")));
+            user.setCreatedDate(resultSet.getTimestamp("created_date"));
             return user;
         }
     }

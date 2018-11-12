@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <HTML xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:form="http://www.w3.org/1999/xhtml" xmlns:th=""
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorate="~{admin_panel_base}">
+
 <div layout:fragment="page_content">
     <div id="page-wrapper">
         <div class="row">
@@ -20,11 +22,12 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <form role="form" class="form-horizontal group-border hover-stripped"
-                                      th:action="@{/productDetails/editCheckedProduct}" th:method="POST"
-                                      modelAttribute="productDetails" commandName="productDetails">
+                                <form action="#" role="form" class="form-horizontal group-border hover-stripped"
+                                      th:object="${productDetails}"
+                                      th:action="@{/productDetails/updateCheckedProduct}" method="POST">
 
-                                    <input type="hidden" class="form-control" th:value="${productDetails.id}" name="id"/>
+                                    <input type="hidden" class="form-control" th:value="${productDetails.id}"
+                                           name="id"/>
                                     <input type="hidden" class="form-control"
                                            th:value="${productDetails.userRequest.id}" name="userRequest.id"/>
                                     <input type="hidden" class="form-control" th:value="${productDetails.user.id}"
@@ -33,14 +36,15 @@
                                     <div class="form-group required">
                                         <label class="col-lg-2 col-md-2 col-sm-12 control-label">Prodct Url</label>
                                         <div class="col-lg-5 col-md-5 ui-sortable">
-                                            <input class="form-control" type="text" th:value="${productDetails.url}"
-                                                   name="url"/>
+                                            <input class="form-control" type="text" th:field="*{url}"/>
                                         </div>
+                                        <span class="error" th:if="${#fields.hasErrors('url')}"
+                                              th:errors="*{url}"></span>
                                     </div>
                                     <div class="form-group required">
                                         <label class="col-lg-2 col-md-2 col-sm-12 control-label">Prodct Category</label>
                                         <div class="col-lg-5 col-md-5 ui-sortable">
-                                            <select class="form-control" name="category.id">
+                                            <select class="form-control" th:field="*{category.id}">
                                                 <option value="">--- Select ---</option>
                                                 <option th:each="category : ${productCategory}"
                                                         th:value="${category.id}" th:text="${category.name}"
@@ -52,29 +56,34 @@
                                     <div class="form-group required">
                                         <label class="col-lg-2 col-md-2 col-sm-12 control-label">Description</label>
                                         <div class="col-lg-5 col-md-5 ui-sortable">
-                                            <textarea name="productDescription" type="text"
-                                                      class="form-control" placeholder="Product Description">[[${productDetails.productDescription}]]</textarea>
+                                           <textarea type="text" th:field="*{productDescription}"
+                                                     class="form-control" placeholder="Product Description"></textarea>
                                         </div>
+                                        <span class="error" th:if="${#fields.hasErrors('productDescription')}"
+                                              th:errors="*{productDescription}"></span>
                                     </div>
                                     <div class="form-group required">
                                         <label class="col-lg-2 col-md-2 col-sm-12 control-label">Unit Price</label>
                                         <div class="col-lg-5 col-md-5 ui-sortable">
-                                            <input name="unitPrice" type="number" th:value="${productDetails.unitPrice}"
+                                            <input th:field="*{unitPrice}"
                                                    class="form-control" placeholder="Price"/>
                                         </div>
+                                        <span class="error" th:if="${#fields.hasErrors('unitPrice')}"
+                                              th:errors="*{unitPrice}"></span>
                                     </div>
                                     <div class="form-group required">
                                         <label class="col-lg-2 col-md-2 col-sm-12 control-label">Delivery Fee</label>
                                         <div class="col-lg-5 col-md-5 ui-sortable">
-                                            <input name="deliveryFee" type="number"
-                                                   th:value="${productDetails.deliveryFee}"
+                                            <input th:field="*{deliveryFee}"
                                                    class="form-control" placeholder="Delivery Fee"/>
                                         </div>
+                                        <span class="error" th:if="${#fields.hasErrors('deliveryFee')}"
+                                              th:errors="*{deliveryFee}"></span>
                                     </div>
                                     <div class="form-group required">
                                         <label class="col-lg-2 col-md-2 col-sm-12 control-label">Status</label>
                                         <div class="col-lg-5 col-md-5 ui-sortable">
-                                            <select class="form-control" name="status">
+                                            <select class="form-control" th:field="*{status}">
                                                 <option value="">--- Select ---</option>
                                                 <option th:each="statusEnum : ${T(com.tp365.shobardokan.model.enums.Status).values()}"
                                                         th:value="${statusEnum}" th:text="${statusEnum}"
@@ -86,24 +95,39 @@
                                     <div class="form-group required">
                                         <label class="col-lg-2 col-md-2 col-sm-12 control-label">Cost Price</label>
                                         <div class="col-lg-5 col-md-5 ui-sortable">
-                                            <input name="costPrice" type="number" th:value="${productDetails.costPrice}"
-                                                   class="form-control" placeholder="Delivery Fee"/>
+                                            <input th:field="*{costPrice}" type="number" class="form-control"
+                                                   placeholder="Cost Price"/>
                                         </div>
+                                        <span class="error" th:if="${#fields.hasErrors('costPrice')}"
+                                              th:errors="*{costPrice}"></span>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-lg-2 col-md-2 col-sm-12 control-label">Price Valid Till
+                                            Date</label>
+                                        <div class="col-lg-5 col-md-5 ui-sortable">
+                                            <input type="date" th:field="*{priceValidTill}"
+                                                   th:value="${#dates.format(priceValidTill, 'yyyy-MM-dd')}"
+                                                   class="form-control" placeholder="Format: yyyy-mm-dd">
+                                        </div>
+                                        <span class="error" th:if="${#fields.hasErrors('priceValidTill')}"
+                                              th:errors="*{priceValidTill}"></span>
                                     </div>
                                     <div class="form-group required">
                                         <label class="col-lg-2 col-md-2 col-sm-12 control-label">Estimated Delivery
                                             Date</label>
                                         <div class="col-lg-5 col-md-5 ui-sortable">
-                                            <input type="date" name="estimatedDeliveryDate"
-                                                   th:value="${#dates.format(productDetails.estimatedDeliveryDate, 'yyyy-MM-dd')}"
+                                            <input type="date" th:field="*{estimatedDeliveryDate}"
+                                                   th:value="${#dates.format(estimatedDeliveryDate, 'yyyy-MM-dd')}"
                                                    class="form-control" placeholder="Format: yyyy-mm-dd">
                                         </div>
+                                        <span class="error" th:if="${#fields.hasErrors('estimatedDeliveryDate')}"
+                                              th:errors="*{estimatedDeliveryDate}"></span>
                                     </div>
                                     <div class="form-group required">
                                         <label class="col-lg-2 col-md-2 col-sm-12 control-label">Comments</label>
                                         <div class="col-lg-5 col-md-5 ui-sortable">
-                                            <textarea name="comments" type="text"
-                                                      class="form-control" placeholder="Comments">[[${productDetails.comments}]]</textarea>
+                                            <textarea th:field="*{comments}" type="text"
+                                                      class="form-control" placeholder="Comments"></textarea>
                                         </div>
                                     </div>
 

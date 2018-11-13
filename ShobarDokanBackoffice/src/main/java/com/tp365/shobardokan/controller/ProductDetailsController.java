@@ -36,9 +36,9 @@ public class ProductDetailsController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(@ModelAttribute("productDetails") ProductDetails productDetails, Model model) {
         if (productDetailsService.add(productDetails)) {
-            model.addAttribute("success", "Product data updated Successfully");
+            model.addAttribute("success", env.getProperty("msg.update.successfull"));
         } else {
-            model.addAttribute("error", "Product data updated Unsuccessfully");
+            model.addAttribute("error", env.getProperty("msg.update.unsuccessfull"));
         }
         model.addAttribute("productDetailsList", productDetailsService.findAll());
         return "productDetails/add";

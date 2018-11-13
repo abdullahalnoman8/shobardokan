@@ -45,68 +45,66 @@ public class ProductDetailsController {
     }
 
 
-    @RequestMapping(value = "/editUncheckedProduct", method = RequestMethod.GET)
-    public String editUncheckedProduct(HttpServletRequest request, Model model) {
+    @RequestMapping(value = "/editRequestedProduct", method = RequestMethod.GET)
+    public String editRequestedProduct(HttpServletRequest request, Model model) {
         UserRequest userRequest = productDetailsService.requestedUncheckedProductById(Integer.valueOf(request.getParameter("id")));
         ProductDetails newProductDetails = new ProductDetails();
         newProductDetails.setUserRequest(userRequest);
         newProductDetails.setUrl(userRequest.getProductUrl());
         model.addAttribute("productDetails", newProductDetails);
         model.addAttribute("productCategory", categoryService.getProductCategoryList());
-        return "productDetails/edit_unchecked_product";
+        return "productDetails/edit_requested_product";
     }
 
-    @RequestMapping(value = "/updateUncheckedProduct", method = RequestMethod.POST)
-    public String updateUncheckedProduct(Model model, @ModelAttribute @Valid ProductDetails productDetails, BindingResult bindingResult,
+    @RequestMapping(value = "/updateRequestedProduct", method = RequestMethod.POST)
+    public String updateRequestedProduct(Model model, @ModelAttribute @Valid ProductDetails productDetails, BindingResult bindingResult,
                                          final RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("productCategory", categoryService.getProductCategoryList());
-            return "productDetails/edit_unchecked_product";
+            return "productDetails/edit_requested_product";
         } else {
             if (productDetailsService.add(productDetails)) {
                 redirectAttributes.addFlashAttribute("success", env.getProperty("msg.update.successfull"));
             } else {
                 redirectAttributes.addFlashAttribute("error", env.getProperty("msg.update.unsuccessfull"));
             }
-            return "redirect:unCheckedProductDetailsList";
+            return "redirect:requestedProductList";
         }
     }
 
-    @RequestMapping(value = "/editCheckedProduct", method = RequestMethod.GET)
-    public String editCheckedProduct(HttpServletRequest request, Model model) {
-        ProductDetails newProductDetails;
-        newProductDetails = productDetailsService.findById(Integer.valueOf(request.getParameter("id")));
-        model.addAttribute("productDetails", newProductDetails);
+    @RequestMapping(value = "/editConfirmedProduct", method = RequestMethod.GET)
+    public String editConfirmedProduct(HttpServletRequest request, Model model) {
+        model.addAttribute("productDetails", productDetailsService.findById(Integer.valueOf(request.getParameter("id"))));
         model.addAttribute("productCategory", categoryService.getProductCategoryList());
-        return "productDetails/edit_checked_product";
+        return "productDetails/edit_confirmed_product";
     }
 
-    @RequestMapping(value = "/updateCheckedProduct", method = RequestMethod.POST)
-    public String updateCheckedProduct(Model model, @ModelAttribute @Valid ProductDetails productDetails, BindingResult bindingResult,
+    @RequestMapping(value = "/updateConfirmedProduct", method = RequestMethod.POST)
+    public String updateConfirmedProduct(Model model, @ModelAttribute @Valid ProductDetails productDetails, BindingResult bindingResult,
                                        final RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("productCategory", categoryService.getProductCategoryList());
-            return "productDetails/edit_checked_product";
+            return "productDetails/edit_confirmed_product";
         } else {
             if (productDetailsService.update(productDetails)) {
                 redirectAttributes.addFlashAttribute("success", env.getProperty("msg.update.successfull"));
             } else {
                 redirectAttributes.addFlashAttribute("error", env.getProperty("msg.update.unsuccessfull"));
             }
-            return "redirect:checkedProductDetailsList";
+            return "redirect:confirmProductList";
         }
     }
 
-    @RequestMapping("/unCheckedProductDetailsList")
-    public String uncheckedProductDetailsList(Model model) {
+    @RequestMapping("/requestedProductList")
+    public String requestedProductList(Model model) {
         model.addAttribute("requestedProductList", productDetailsService.requestedProductList());
-        return "productDetails/unchecked_product_details_list";
+        return "productDetails/requested_product_list";
     }
 
-    @RequestMapping("/checkedProductDetailsList")
-    public String checkedProductDetailsList(Model model) {
+    @RequestMapping("/confirmProductList")
+    public String confirmProductList(Model model) {
         model.addAttribute("checkedProductList", productDetailsService.findAll());
-        return "productDetails/checked_product_details_list";
+        return "productDetails/confirm_product_list";
     }
 
 }

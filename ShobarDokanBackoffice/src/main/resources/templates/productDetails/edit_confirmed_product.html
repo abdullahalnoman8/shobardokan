@@ -24,7 +24,7 @@
                             <div class="col-lg-12">
                                 <form action="#" role="form" class="form-horizontal group-border hover-stripped"
                                       th:object="${productDetails}"
-                                      th:action="@{/productDetails/updateCheckedProduct}" method="POST">
+                                      th:action="@{/productDetails/updateConfirmedProduct}" method="POST">
 
                                     <input type="hidden" class="form-control" th:value="${productDetails.id}"
                                            name="id"/>

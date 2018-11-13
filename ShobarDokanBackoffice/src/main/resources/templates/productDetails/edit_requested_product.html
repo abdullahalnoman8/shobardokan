@@ -27,7 +27,7 @@
                             <div class="col-lg-12">
                                 <form action="#"  role="form" class="form-horizontal group-border hover-stripped"
                                       th:object="${productDetails}"
-                                      th:action="@{/productDetails/updateUncheckedProduct}" method="POST">
+                                      th:action="@{/productDetails/updateRequestedProduct}" method="POST">
 
                                     <input class="form-control" type="hidden" th:field="*{userRequest.id}"/>
                                     <input class="form-control" type="hidden"  th:field="*{userRequest.user.id}"/>

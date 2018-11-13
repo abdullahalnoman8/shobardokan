@@ -16,8 +16,7 @@ public class CleanStringAdvice {
         public void setAsText(String text) {
             if (text == null) {
                 setValue(null);
-            }
-            else {
+            } else {
                 String safe = Jsoup.clean(text, Whitelist.simpleText());
                 setValue(safe);
             }

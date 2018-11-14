@@ -30,13 +30,13 @@ public class TestUserDetailsRepository {
         User user = new User();
         user.setId(3);
         userDetails.setUser(user);
-        userDetails.setFirst_name("Abdullah");
-        userDetails.setLast_name("Al Noman");
+        userDetails.setFirstName("Abdullah");
+        userDetails.setLastName("Al Noman");
         userDetails.setGender(UserDetails.Gender.MALE);
-        userDetails.setDate_of_birth(new Date());
-        userDetails.setPresent_address("Test Present Address");
-        userDetails.setMailing_address("Test Mailing Address");
-        userDetails.setEmergency_contact_number("000000000");
+        userDetails.setDateOfBirth(new Date());
+        userDetails.setPresentAddress("Test Present Address");
+        userDetails.setMailingAddress("Test Mailing Address");
+        userDetails.setEmergencyContactNumber("000000000");
 
         UserDetails savedUserDetails = userDetailsRepository.add(userDetails);
         Assert.assertNotNull(savedUserDetails.getId());

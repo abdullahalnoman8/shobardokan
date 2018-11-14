@@ -1,0 +1,12 @@
+.form-group.required .control-label:after {
+    content: "*";
+    color: red;
+}
+
+.form-control.error {
+    border: 1px solid red;
+}
+
+.error {
+    color: red;
+}

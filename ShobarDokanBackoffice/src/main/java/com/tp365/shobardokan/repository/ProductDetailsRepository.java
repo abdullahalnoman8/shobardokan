@@ -42,7 +42,7 @@ public class ProductDetailsRepository {
         parameterData.put("cost_price", productDetails.getCostPrice());
         parameterData.put("estimated_delivery_date", productDetails.getEstimatedDeliveryDate());
         parameterData.put("comments", productDetails.getComments());
-        parameterData.put("user_id", productDetails.getUser().getId());
+        parameterData.put("user_id", productDetails.getUserRequest().getUser().getId());
         try {
             Number autoGenId = simpleJdbcInsert.executeAndReturnKey(parameterData);
             if (autoGenId != null) {
@@ -129,10 +129,10 @@ public class ProductDetailsRepository {
             productDetails.setCategory(category);
             productDetails.setUrl(resultSet.getString("url"));
             productDetails.setProductDescription(resultSet.getString("product_description"));
-            productDetails.setUnitPrice(resultSet.getDouble("unit_price"));
-            productDetails.setDeliveryFee(resultSet.getDouble("delivery_fee"));
+            productDetails.setUnitPrice(resultSet.getBigDecimal("unit_price"));
+            productDetails.setDeliveryFee(resultSet.getBigDecimal("delivery_fee"));
             productDetails.setStatus(Status.valueOf(resultSet.getString("status")));
-            productDetails.setCostPrice(resultSet.getDouble("cost_price"));
+            productDetails.setCostPrice(resultSet.getBigDecimal("cost_price"));
             productDetails.setEstimatedDeliveryDate(resultSet.getDate("estimated_delivery_date"));
             productDetails.setComments(resultSet.getString("comments"));
             User user = new User();

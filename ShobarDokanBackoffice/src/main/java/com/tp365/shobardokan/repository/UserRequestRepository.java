@@ -99,7 +99,7 @@ public class UserRequestRepository {
             user.setUsername(rs.getString("username"));
             userRequest.setUser(user);
             userRequest.setProductUrl(rs.getString("product_url"));
-            userRequest.setQuantity(rs.getInt("quantity"));
+            userRequest.setQuantity(rs.getBigDecimal("quantity"));
             userRequest.setStatus(UserRequest.Status.valueOf(rs.getString("status")));
             userRequest.setCreatedAt(rs.getDate("created_at"));
             userRequest.setUpdatedAt(rs.getDate("updated_at"));

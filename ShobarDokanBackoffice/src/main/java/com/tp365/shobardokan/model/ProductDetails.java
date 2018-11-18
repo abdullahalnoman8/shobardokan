@@ -4,8 +4,6 @@ import com.tp365.shobardokan.model.enums.Status;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -35,7 +33,6 @@ public class ProductDetails {
 
     @NotNull
     @Valid
-    @Enumerated(EnumType.STRING)
     private Status status;
 
     @NotNull

@@ -73,6 +73,16 @@ public class UserRepository {
         return new ArrayList<>();
     }
 
+    public boolean updateUser(User user){
+        String query="update user set phone =? where id=?";
+        boolean isUpdated = false;
+        try{
+            isUpdated = jdbcTemplate.update(query,user.getPhone(),user.getId()) == 1;
+        }catch (DataAccessException dae){
+            log.error("Phone number has not added, Error: {}",dae.getLocalizedMessage());
+        }
+        return isUpdated;
+    }
     public User findUserByUserName(String userName) {
         String query = "SELECT user.* FROM USER\n" +
                 "WHERE user.username = ?";
@@ -84,6 +94,34 @@ public class UserRepository {
         }
     }
 
+    public Boolean checkUserNameExists(String userName) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM user WHERE username = ?",
+                    new Object[]{userName}, Integer.class) == 1;
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            return Boolean.FALSE;
+        }
+    }
+
+    public Boolean checkPhoneNumberExists(String phone) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM user WHERE phone = ?",
+                    new Object[]{phone}, Integer.class) == 1;
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            return Boolean.FALSE;
+        }
+    }
+    public Boolean checkUserEmailExists(String email) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM user WHERE email = ?",
+                    new Object[]{email}, Integer.class) == 1;
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            return Boolean.FALSE;
+        }
+    }
 
     class UserRowMapper implements RowMapper<User>{
         @Override

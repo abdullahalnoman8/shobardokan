@@ -1,8 +1,12 @@
 <!DOCTYPE HTML>
 <HTML xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
       layout:decorate="~{home_page_base}">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--<script type="text/javascript" th:src="@{/js/register.js}"></script>-->
+</head>
 
 <div layout:fragment="page_content">
     <div class="row">
@@ -16,6 +20,23 @@
                         <div class="alert alert-danger">
                             <strong th:text="${error}"></strong>
                         </div>
+                    </div>
+
+                    <div id="app">
+                        {{ message }}
+                        <button v-on:click ="reverseMessage">Reverse Message</button>
+                        <input v-model="message">
+                    </div>
+                    <div id="app1">
+                        <span v-if="seen">Now You See Me</span>
+                    </div>
+                    <div id="app2">
+                        <ol>
+                            <li v-for="todo in todos">
+                                {{todo.text}}
+                            </li>
+                        </ol>
+
                     </div>
                     <form class="form-group" th:action="@{/register}" id="register" th:method="post" modelAttribute="register" commandName="register">
                         <fieldset>
@@ -53,7 +74,7 @@
                             </div>
                         </fieldset>
                     </form>
-
+                    <script type="text/javascript" th:src="@{/js/register.js}"></script>
                 </div>
 
             </div>

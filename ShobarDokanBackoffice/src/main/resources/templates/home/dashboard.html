@@ -1,7 +1,13 @@
 <!DOCTYPE HTML>
 <HTML xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{admin_panel_base}">
+<head>
+    <meta id="csrf" th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script th:src="@{/js/facebookotp.js}"></script>
+    <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
+</head>
 <div layout:fragment="page_content">
 
     <div id="page-wrapper">
@@ -10,6 +16,17 @@
                 <h1 class="page-header">Dashboard</h1>
             </div>
             <!-- /.col-lg-12 -->
+
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <!-- Button trigger modal -->
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        User Verification
+                    </button>
+                </div>
+            </div>
         </div>
         <!-- /.row -->
         <div class="row">
@@ -320,4 +337,46 @@
     </div>
     <!-- /#page-wrapper -->
 
+    <!--Phone Number Verification Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">Verification</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="row form-group">
+                            <div class="col-xs-12 col-md-8">
+                                <input class="form-control col-xs-3 col-md-4"  value="+880" id="country_code" />
+                                <input class="form-control  col-md-4" placeholder="Phone Number (e.g 1717-000000)" name="phone_number" type="tel"
+                                       required="required" id="phone_number" value="">
+                            </div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-primary" onclick="smsLogin();">Send SMS</button>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-12 col-md-6">
+                                <input class="form-control" placeholder="Email (e.g john@gmail.com)" name="email" type="email"
+                                       required="required" id="email" value="">
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-primary" onclick="emailLogin();">Send Email</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

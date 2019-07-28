@@ -84,8 +84,8 @@ public class UserRepository {
         return isUpdated;
     }
     public User findUserByUserName(String userName) {
-        String query = "SELECT user.* FROM USER\n" +
-                "WHERE user.username = ?";
+        String query = "SELECT shobardokan.user.* FROM shobardokan.user\n" +
+                "WHERE shobardokan.user.username = ?";
         try{
             return jdbcTemplate.queryForObject(query,new Object[]{userName},new UserRowMapper());
         }catch (DataAccessException dae){

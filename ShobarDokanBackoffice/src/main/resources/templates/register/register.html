@@ -22,22 +22,22 @@
                         </div>
                     </div>
 
-                    <div id="app">
-                        {{ message }}
-                        <button v-on:click ="reverseMessage">Reverse Message</button>
-                        <input v-model="message">
-                    </div>
-                    <div id="app1">
-                        <span v-if="seen">Now You See Me</span>
-                    </div>
-                    <div id="app2">
-                        <ol>
-                            <li v-for="todo in todos">
-                                {{todo.text}}
-                            </li>
-                        </ol>
+<!--                    <div id="app">-->
+<!--                        {{ message }}-->
+<!--                        <button v-on:click ="reverseMessage">Reverse Message</button>-->
+<!--                        <input v-model="message">-->
+<!--                    </div>-->
+<!--                    <div id="app1">-->
+<!--                        <span v-if="seen">Now You See Me</span>-->
+<!--                    </div>-->
+<!--                    <div id="app2">-->
+<!--                        <ol>-->
+<!--                            <li v-for="todo in todos">-->
+<!--                                {{todo.text}}-->
+<!--                            </li>-->
+<!--                        </ol>-->
 
-                    </div>
+<!--                    </div>-->
                     <form class="form-group" th:action="@{/register}" id="register" th:method="post" modelAttribute="register" commandName="register">
                         <fieldset>
                             <div class="form-group">

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin_panel_base}">
+<div layout:fragment="page_content">
+    <div id="page-wrapper">
+        <!--<div class="fb-login-button" data-width="200" data-max-rows="1" data-size="large" data-button-type="continue_with" data-auth-type="rerequest" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true">-->
+
+        <div class="col-md-3 form-group">
+
+            <!--</div>-->
+            <form th:action="@{/signin/facebook}" method="POST" id="facebookData">
+                <input name="scope" value="email" th:type="hidden"/>
+                <input name="auth_type" value="rerequest" th:type="hidden"/>
+                <button type="submit" class="btn btn-block btn-social btn-facebook" value="Continue With Facebook">
+                    <i class="fa fa-facebook"></i>
+                    Continue With Facebook
+                </button>
+                <!--<a href="javascript:void(0)" onclick="document.getElementById('facebookData').submit();"-->
+                <!--class="btn btn-block btn-social btn-facebook" style="text-align: center;">-->
+                <!--<i class="fa fa-facebook"></i>-->
+                <!---->
+                <!--</a>-->
+            </form>
+        </div>
+    </div>
+</div>
+</HTML>

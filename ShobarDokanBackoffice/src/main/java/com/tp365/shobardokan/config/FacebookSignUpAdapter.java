@@ -34,11 +34,13 @@ public class FacebookSignUpAdapter implements ConnectionSignUp {
 		log.info(facebookUser.getName(), facebookUser.getId(), facebookUser.getEmail());
 		user.setEmail(facebookUser.getEmail());
 		user.setUsername(connection.getKey().toString());
-		user.setPassword(null);
+		user.setPassword("TEMP PASS, PLEASE DON'T TRY LOGGING IN WITH THIS");
 		user.setUserStatus(UserStatus.INACTIVE);
 		user.setCreatedDate(new Date());
 		//				user.setPhone(connection.fetchUserProfile().);
 		user = userRepository.add(user);
+		if (user.getId() == null)
+			return null;
 		usersRolesRepository.add(new UsersRoles(user.getId(), Roles.USER.name()));
 		return Integer.toString(user.getId());
 	}

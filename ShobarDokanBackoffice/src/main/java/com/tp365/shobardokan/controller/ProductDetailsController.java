@@ -4,6 +4,7 @@ import com.tp365.shobardokan.model.ProductDetails;
 import com.tp365.shobardokan.model.UserRequest;
 import com.tp365.shobardokan.service.CategoryService;
 import com.tp365.shobardokan.service.ProductDetailsService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -24,6 +25,7 @@ import javax.validation.Valid;
 @PropertySource("classpath:message.properties")
 @Controller
 @RequestMapping(value = "productDetails")
+@Slf4j
 public class ProductDetailsController {
 
     @Autowired
@@ -98,6 +100,7 @@ public class ProductDetailsController {
     @RequestMapping("/requestedProductList")
     public String requestedProductList(Model model) {
         model.addAttribute("requestedProductList", productDetailsService.requestedProductList());
+        log.info("Showing requested products list");
         return "productDetails/requested_product_list";
     }
 

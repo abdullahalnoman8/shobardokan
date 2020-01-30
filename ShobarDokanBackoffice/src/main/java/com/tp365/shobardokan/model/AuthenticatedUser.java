@@ -10,7 +10,9 @@ import java.util.Collection;
  */
 @Data
 public class AuthenticatedUser extends org.springframework.security.core.userdetails.User {
+	
     private Integer id;
+    
     public AuthenticatedUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }

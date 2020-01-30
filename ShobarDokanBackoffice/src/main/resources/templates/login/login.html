@@ -47,7 +47,7 @@
                     </form>
                     <div class="form-group">
                         <form th:action="@{/signin/facebook}" method="POST" id="facebookData">
-                            <input name="scope" value="public_profile,email", th:type="hidden"/>
+                            <input name="scope" value="public_profile,email" th:type="hidden"/>
                             <a href="javascript:void(0)" onclick="document.getElementById('facebookData').submit();"
                                class="btn btn-block btn-social btn-facebook" style="text-align: center;"><i class="fa fa-facebook"></i> Sign in with
                                 Facebook</a>

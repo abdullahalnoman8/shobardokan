@@ -36,7 +36,7 @@ public class SocialConfig implements SocialConfigurer {
 			@Override
 			public String getUserId() {
 //				return SecurityContext.getCurrentUser().getId();
-				return String.valueOf(((AuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getId());
+				return String.valueOf(((AuthenticatedUser) SecurityContextHolder.getContext().getAuthentication().getDetails()).getId());
 //				return "user-id";
 			}
 		};

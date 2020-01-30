@@ -106,4 +106,15 @@ public class HomeController {
 //        }
 //        return "home/dashboard";
 //    }
+    
+    @GetMapping(value = "/confirmEmail")
+	public String confirmEmail() {
+    	User user = userService.getCurrentUser();
+    	if (user.getEmail() != null) {
+    		// redirect user to dashboard if he already has an email set
+    		return "redirect:/dashboard";
+	    }
+	    
+    	return "login/confirm_email";
+    }
 }

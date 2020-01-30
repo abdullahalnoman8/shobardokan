@@ -44,4 +44,8 @@ public class Utils {
 		roles.stream().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRole().name())));
 		return authorities;
 	}
+	
+	public static String asLogStatement(String query) {
+		return query.replaceAll("\\?", "{}");
+	}
 }

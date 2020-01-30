@@ -1,5 +1,6 @@
 package com.tp365.shobardokan.service;
 
+import com.tp365.shobardokan.model.AuthenticatedUser;
 import com.tp365.shobardokan.model.Role;
 import com.tp365.shobardokan.model.User;
 import com.tp365.shobardokan.model.UsersRoles;
@@ -74,7 +75,7 @@ public class UserService {
         return userRepository.findUserByUserName(userName);
     }
 
-    public boolean updateUserWithValidPhone(AuthorizedResponse  authorizedResponse){
+    public boolean updateUserWithValidPhone(AuthorizedResponse authorizedResponse){
         User user = new User();
         user.setPhone(authorizedResponse.getPhone().getNumber());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -82,4 +83,9 @@ public class UserService {
         user.setId(userId);
         return userRepository.updateUser(user);
     }
+	
+	public User getCurrentUser() {
+    	AuthenticatedUser user = (AuthenticatedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	return userRepository.findById(user.getId());
+	}
 }

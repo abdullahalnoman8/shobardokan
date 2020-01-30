@@ -33,6 +33,7 @@ public class LoginService implements UserDetailsService {
         Set<GrantedAuthority> authority = Utils.mapRolesToAuthorities(usersRolesRepository.resolveRolesForUser(user));
         AuthenticatedUser authenticatedUser = new AuthenticatedUser(user.getUsername(),
                 user.getPassword(), authority).addId(user.getId());
+//	    MDC.put("userId", String.valueOf(user.getId()));
         return authenticatedUser;
     }
 }

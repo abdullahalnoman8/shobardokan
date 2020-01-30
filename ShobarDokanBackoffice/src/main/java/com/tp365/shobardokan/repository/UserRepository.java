@@ -3,6 +3,7 @@ package com.tp365.shobardokan.repository;
 
 import com.tp365.shobardokan.model.User;
 import com.tp365.shobardokan.model.enums.UserStatus;
+import com.tp365.shobardokan.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Slf4j
@@ -84,12 +82,11 @@ public class UserRepository {
         return isUpdated;
     }
     public User findUserByUserName(String userName) {
-        String query = "SELECT user.* FROM USER\n" +
-                "WHERE user.username = ?";
+        String query = "SELECT * FROM user WHERE user.username = ?";
         try{
             return jdbcTemplate.queryForObject(query,new Object[]{userName},new UserRowMapper());
         }catch (DataAccessException dae){
-            log.error("User Data Not Found, Error: {}",dae.getLocalizedMessage());
+            log.error("User Data Not Found, Error: {}", dae.getLocalizedMessage());
             return null;
         }
     }
@@ -122,6 +119,33 @@ public class UserRepository {
             return Boolean.FALSE;
         }
     }
+	
+	public User findById(Integer id) {
+		String query = "SELECT * FROM USER WHERE id = ?";
+		try {
+			return jdbcTemplate.queryForObject(query, new Object[]{id}, new UserRowMapper());
+		} catch (DataAccessException dae){
+			log.error("Failed to execute the following query:",dae.getLocalizedMessage());
+			log.error(Utils.asLogStatement(query), id);
+			log.error(dae.getLocalizedMessage());
+		}
+		return null;
+	}
+	
+	// can't update username through this method
+	public boolean update(User user) {
+		String query = "Update user set email = ?, password = ?, user_status=?, is_active = ?, last_active = ?, image_id = ? where id = ?";
+		try{
+			Integer imageId = user.getImage() != null? user.getImage().getId(): null;
+			return jdbcTemplate.update(query, user.getEmail(), user.getPassword(), user.getUserStatus().name(), user.getIsActive(), new Date(), imageId, user.getId()) == 1;
+		} catch (DataAccessException dae){
+			log.error("User update encountered the following error: {}", dae.getLocalizedMessage());
+			log.error("Query: {}, user: {}", query, user);
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+		}
+		return false;
+	}
 
     class UserRowMapper implements RowMapper<User>{
         @Override
